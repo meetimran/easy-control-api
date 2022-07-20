@@ -15,11 +15,25 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->rememberToken();
+            $table->integer('IsActive')->nullable();
+            $table->integer('property_id')->nullable();
+            $table->string('CreatedBy', 38)->nullable();
+            $table->string('LastUpdatedBy', 38)->nullable();
+            $table->string('CreatedByName', 100)->nullable();
+            $table->string('LastUpdatedByName', 100)->nullable();
+            $table->integer('SortKey')->nullable();
+            $table->integer('UserID')->nullable();
+            $table->string('FirstName')->nullable();
+            $table->string('LastName')->nullable();
+            $table->string('UserName')->nullable();
+            $table->string('Email')->nullable();
+            $table->string('Password')->nullable();     
+            $table->binary('Hash')->nullable();
+            $table->binary('Salt')->nullable();
+            $table->dateTime('LastLogin')->nullable();
+            $table->integer('ChangePasswordOnFirstLogon')->nullable();
+            $table->integer('OptimisticLockField')->nullable();
+            $table->integer('GCRecord')->nullable();
             $table->timestamps();
         });
     }
