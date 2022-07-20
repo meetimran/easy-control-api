@@ -13,22 +13,49 @@ class UserController extends Controller
     }
 
     public function create(Request $req){
-        // dd($req->name);
         $validated = $this->validate($req, [
-            'name' => 'required',
-            'email' => 'required',
-            // 'email_verified_at' => '',
-            // 'password' => '',
-            // 'remember_token' => '',
-
+            'isActive' => 'nullable',
+            'property_id' => 'nullable',
+            'CreatedBy' =>'nullable',
+            'LastUpdatedBy' =>'nullable',
+            'CreatedByName' =>'nullable',
+            'LastUpdatedByName' =>'nullable',
+            'SortKey' =>'nullable',
+            'UserID' =>'nullable',
+            'FirstName' =>'nullable',
+            'LastName' =>'nullable',
+            'UserName' => 'required',
+            'Email' => 'required',
+            'Password' => 'required',
+            'Hash' => 'nullable',
+            'Salt' => 'nullable',
+            'LastLogin' => 'nullable',
+            'ChangePasswordOnFirstLogon' => 'nullable',
+            'OptimisticLockField' => 'nullable',
+            'GCRecord' => 'nullable'
         ]);
+
+        // dd($validated);
         $newUser =new User();
-        // dd($newUser->name);
-        $newUser->name = $req->name;
-        $newUser->email = $req->email;
-        $newUser->email_verified_at = $req->email_verified_at;
-        $newUser->password = Hash::make($req->password);
-        $newUser->remember_token = $req->remember_token;
+        $newUser->isActive = $validated['isActive'];
+        $newUser->property_id = $validated['property_id'];
+        $newUser->CreatedBy = $validated['CreatedBy'];
+        $newUser->LastUpdatedBy = $validated['LastUpdatedBy'];
+        $newUser->CreatedByName = $validated['CreatedByName'];
+        $newUser->LastUpdatedByName = $validated['LastUpdatedByName'];
+        $newUser->SortKey = $validated['SortKey'];
+        $newUser->UserID = $validated['UserID'];
+        $newUser->FirstName = $validated['FirstName'];
+        $newUser->LastName = $validated['LastName'];
+        $newUser->UserName = $validated['UserName'];
+        $newUser->Email = $validated['Email'];
+        $newUser->Password = Hash::make($validated['Password']);
+        $newUser->Hash = $validated['Hash'];
+        $newUser->Salt = $validated['Salt'];
+        $newUser->LastLogin = $validated['LastLogin'];
+        $newUser->ChangePasswordOnFirstLogon = $validated['ChangePasswordOnFirstLogon'];
+        $newUser->OptimisticLockField = $validated['OptimisticLockField'];
+        $newUser->GCRecord = $validated['GCRecord'];
         $newUser->save();
 
         return response($newUser->refresh(), 200);
@@ -40,11 +67,25 @@ class UserController extends Controller
 
     public function update(Request $req, User $id){
         $user = $id;
-        $user->name = $req->name;
-        $user->email = $req->email;
-        $user->email_verified_at = $req->email_verified_at;
-        $user->password = $req->password;
-        $user->remember_token = $req->remember_token;
+        $user->isActive = $req->isActive;
+        $user->property_id = $req->property_id;
+        $user->CreatedBy = $req->CreatedBy;
+        $user->LastUpdatedBy = $req->LastUpdatedBy;
+        $user->CreatedByName = $req->CreatedByName;
+        $user->LastUpdatedByName = $req->LastUpdatedByName;
+        $user->SortKey = $req->SortKey;
+        $user->UserID = $req->UserID;
+        $user->FirstName = $req->FirstName;
+        $user->LastName = $req->LastName;
+        $user->UserName = $req->UserName;
+        $user->Email = $req->Email;
+        $user->Password = $req->Password;
+        $user->Hash = $req->Hash;
+        $user->Salt = $req->Salt;
+        $user->LastLogin = $req->LastLogin;
+        $user->ChangePasswordOnFirstLogon = $req->ChangePasswordOnFirstLogon;
+        $user->OptimisticLockField = $req->OptimisticLockField;
+        $user->GCRecord = $req->GCRecord;
         $user->save();
 
         return response($user->refresh(), 200);
