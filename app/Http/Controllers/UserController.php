@@ -67,25 +67,49 @@ class UserController extends Controller
 
     public function update(Request $req, User $id){
         $user = $id;
-        $user->isActive = $req->isActive;
-        $user->property_id = $req->property_id;
-        $user->CreatedBy = $req->CreatedBy;
-        $user->LastUpdatedBy = $req->LastUpdatedBy;
-        $user->CreatedByName = $req->CreatedByName;
-        $user->LastUpdatedByName = $req->LastUpdatedByName;
-        $user->SortKey = $req->SortKey;
-        $user->UserID = $req->UserID;
-        $user->FirstName = $req->FirstName;
-        $user->LastName = $req->LastName;
-        $user->UserName = $req->UserName;
-        $user->Email = $req->Email;
-        $user->Password = $req->Password;
-        $user->Hash = $req->Hash;
-        $user->Salt = $req->Salt;
-        $user->LastLogin = $req->LastLogin;
-        $user->ChangePasswordOnFirstLogon = $req->ChangePasswordOnFirstLogon;
-        $user->OptimisticLockField = $req->OptimisticLockField;
-        $user->GCRecord = $req->GCRecord;
+
+        $validated = $this->validate($req, [
+            'isActive' => 'nullable',
+            'property_id' => 'nullable',
+            'CreatedBy' =>'nullable',
+            'LastUpdatedBy' =>'nullable',
+            'CreatedByName' =>'nullable',
+            'LastUpdatedByName' =>'nullable',
+            'SortKey' =>'nullable',
+            'UserID' =>'nullable',
+            'FirstName' =>'nullable',
+            'LastName' =>'nullable',
+            'UserName' => 'required',
+            'Email' => 'required',
+            'Password' => 'required',
+            'Hash' => 'nullable',
+            'Salt' => 'nullable',
+            'LastLogin' => 'nullable',
+            'ChangePasswordOnFirstLogon' => 'nullable',
+            'OptimisticLockField' => 'nullable',
+            'GCRecord' => 'nullable'
+        ]);
+
+        // dd($validated);
+        $user->isActive = $validated['isActive'];
+        $user->property_id = $validated['property_id'];
+        $user->CreatedBy = $validated['CreatedBy'];
+        $user->LastUpdatedBy = $validated['LastUpdatedBy'];
+        $user->CreatedByName = $validated['CreatedByName'];
+        $user->LastUpdatedByName = $validated['LastUpdatedByName'];
+        $user->SortKey = $validated['SortKey'];
+        $user->UserID = $validated['UserID'];
+        $user->FirstName = $validated['FirstName'];
+        $user->LastName = $validated['LastName'];
+        $user->UserName = $validated['UserName'];
+        $user->Email = $validated['Email'];
+        $user->Password = Hash::make($validated['Password']);
+        $user->Hash = $validated['Hash'];
+        $user->Salt = $validated['Salt'];
+        $user->LastLogin = $validated['LastLogin'];
+        $user->ChangePasswordOnFirstLogon = $validated['ChangePasswordOnFirstLogon'];
+        $user->OptimisticLockField = $validated['OptimisticLockField'];
+        $user->GCRecord = $validated['GCRecord'];
         $user->save();
 
         return response($user->refresh(), 200);
