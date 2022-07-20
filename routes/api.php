@@ -18,10 +18,11 @@ use App\Http\Controllers\UserController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-Route::controller(UserController::class)->group(function(){
-    Route::get('/users','show');
-    Route::post('/users','create');
-    Route::delete('/users/{id}','destroy');
-    Route::put('/users/{id}','update');
+Route::prefix('v1')->group(function(){
+    Route::controller(UserController::class)->group(function(){
+        Route::get('/users','show');
+        Route::post('/users','create');
+        Route::delete('/users/{id}','destroy');
+        Route::put('/users/{id}','update');
+    });    
 });
