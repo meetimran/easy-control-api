@@ -5,11 +5,40 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
+
+    public function login(Request $req){
+        $user= User::where('UserName', $req->UserName)->first();
+
+            if (!$user || !Hash::check($req->Password, $user->Password)) {
+                return response([
+                    'message' => ['Invalid username or password']
+                ], 404);
+            }
+        
+            $token = $user->createToken('my-app-token')->plainTextToken;
+        
+            $response = [
+                'user' => $user,
+                'token' => $token
+            ];
+        
+             return response($response, 201);
+
+    }
+
+
     public function show(){
-        return User::all();
+        // $token = $req->token;
+        // $status = DB::table('personal_access_tokens')->where('token',$token)->first();
+        // if(!$status){
+        //     return "Unauthorized";
+        // };
+        $res = User::all();
+        return response($res, 200);
     }
 
     public function create(Request $req){
