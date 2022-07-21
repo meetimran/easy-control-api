@@ -11,9 +11,14 @@ class UserController extends Controller
 {
 
     public function login(Request $req){
-        $user= User::where('UserName', $req->UserName)->first();
+        $validated = $this->validate($req,[
+            'id'=>'nullable',
+            'UserName'=>'required',
+            'Password'=>'required',
+        ]);
+        $user= User::where('UserName', $validated['UserName'])->first();
 
-            if (!$user || !Hash::check($req->Password, $user->Password)) {
+            if (!$user || !Hash::check($validated['Password'], $user->Password)) {
                 return response([
                     'message' => ['Invalid username or password']
                 ], 404);
