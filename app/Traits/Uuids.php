@@ -1,6 +1,7 @@
 <?php
 namespace App\Traits;
-use Illuminate\Support\Str;trait Uuids
+use Illuminate\Support\Str;
+trait Uuids
 {   /**
      * Boot function from Laravel.
      */
