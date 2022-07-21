@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('checkin_rooms', function (Blueprint $table) {
-           $table->id();
+           $table->uuid('id')->primary();
             $table->string('CheckIn',38)->nullable();
             $table->string('Room',38)->nullable();
             $table->integer('OptimisticLockField')->nullable();

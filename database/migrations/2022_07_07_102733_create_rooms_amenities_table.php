@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('rooms_amenities', function (Blueprint $table) {
-           $table->id();
+           $table->uuid('id')->primary();
             $table->string('Rooms',38)->nullable();
             $table->string('RoomAminities',38)->nullable();
             $table->integer('OptimisticLockField')->nullable();

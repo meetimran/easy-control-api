@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('housekeepingdays_rooms', function (Blueprint $table) {
-           $table->id();
+           $table->uuid('id')->primary();
             $table->string('Rooms',38)->nullable();
             $table->string('HouseKeepingDays',38)->nullable();
             $table->integer('OptimisticLockField')->nullable();

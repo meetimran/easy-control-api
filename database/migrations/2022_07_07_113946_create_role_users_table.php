@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('role_users', function (Blueprint $table) {
-           $table->id();
+           $table->uuid('id')->primary();
             $table->string('Roles',38)->nullable();
             $table->string('Users',38)->nullable();
             $table->integer('OptimisticLockField')->nullable();

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('addresses', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->integer('IsActive')->nullable();
             $table->integer('property_id');
             $table->string('CreatedBy', 38)->nullable();

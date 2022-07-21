@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('tasks_tasksassignments', function (Blueprint $table) {
-           $table->id();
+           $table->uuid('id')->primary();
             $table->string('TaskAssignments',38)->nullable();
             $table->string('Tasks',38)->nullable();
             $table->integer('OptimisticLockField')->nullable();

@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('property_grades', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
             $table->integer('IsActive')->nullable();
             $table->integer('property_id')->nullable();
             $table->string('CreatedBy', 38)->nullable();
